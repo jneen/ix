@@ -1,0 +1,3 @@
+[submodule "deps/jim-ncurses"]
+	path = deps/jim-ncurses
+	url = git@github.com:jayferd/jim-ncurses
