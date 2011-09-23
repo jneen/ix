@@ -1,3 +1,6 @@
 [submodule "deps/jim-ncurses"]
 	path = deps/jim-ncurses
 	url = git@github.com:jayferd/jim-ncurses
+[submodule "deps/jimtcl"]
+	path = deps/jimtcl
+	url = git://github.com/msteveb/jimtcl
