@@ -1,3 +1,8 @@
+source [file dirname [info script]]/../deps/jim-ncurses/lib/ncurses.tcl
+
 proc ix.run {} {
-  puts ix!
+  ncurses.do {
+    stdscr puts "LOL"
+    ncurses.getc
+  }
 }
