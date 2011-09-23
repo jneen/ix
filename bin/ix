@@ -1,0 +1,6 @@
+#!/usr/bin/env jimsh
+# vim: filetype=tcl
+
+source [file dirname [info script]]/../lib/ix.tcl
+
+ix.run
