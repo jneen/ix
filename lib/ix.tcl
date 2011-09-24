@@ -15,5 +15,5 @@ proc ix.run {} {
 
     set fooWindow [Window new]
     $fooWindow initialize $fooBuffer
-    $fooWindow show
+    $fooWindow show 0 0
 }

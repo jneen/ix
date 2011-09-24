@@ -1,7 +1,8 @@
 # Window object.
 
 class Window {
-    win ""
+    masterWindow ""
+    innerWindow ""
     buffer ""
     dimensions {}
     firstline 0
@@ -12,15 +13,27 @@ Window method initialize {buf} {
     set buffer $buf
 }
 
-Window method show {} {
+Window method show {row col} {
     ncurses.do {
-        set win [stdscr window {*}[stdscr getmaxyx] 0 0]
-        $win box
+        set masterWindow [stdscr window {*}[stdscr getmaxyx] $row $col]
+        set innerHeight [- [$masterWindow height] 2]
+        set innerWidth  [- [$masterWindow width] 2]
+        set innerWindow [$masterWindow window $innerHeight $innerWidth 1 1]
+        $masterWindow box
 
-        for {set i 0} {$i < [lindex [$win getmaxyx] 0]} {incr i} {
-            $win puts [list [+ 1 $i] 1] [lindex [$buffer getBuffer] [+ $i $firstline]]
+        $masterWindow puts "height: [$masterWindow height]"
+
+        for {set i 0} {$i < [$innerWindow height]} {incr i} {
+            set line [lindex [$buffer getBuffer] [+ $i $firstline]]
+
+            # truncate the string and add a $ at the end
+            if {[string length $line] > $innerWidth} {
+                set line "[string range $line 0 [- $innerWidth 2]]\$"
+            }
+
+            $innerWindow puts [list $i 0] $line
         }
 
-        ncurses.getc
+        $masterWindow getc
     }
 }
