@@ -4,9 +4,8 @@
 package require aio
 
 class Buffer {
-    filename ""
-    buffer ""
-    position ""
+    filename ""     ;# Path to the file this Buffer controls.
+    buffer ""       ;# Text contained in this Buffer.
 }
 
 Buffer method initialize {path} {
@@ -15,8 +14,7 @@ Buffer method initialize {path} {
     if {[file exists $path]} {
         set handle [open $path r]
         seek $handle 0
-        set buffer [read $handle]
-        split buffer "\n"
+        set buffer [split [read $handle] "\n"]
         close $handle
         unset handle
     }

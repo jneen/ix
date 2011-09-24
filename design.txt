@@ -6,6 +6,9 @@ conductor "object"/main event loop/whatever:
 
 buffers:
 - contain text
+
+windows:
+- contain buffers
 - has current location of caret
 
 backends:
