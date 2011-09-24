@@ -4,6 +4,7 @@ package require ncurses
 
 set IX_LIB [file dirname [info script]]
 
+source $IX_LIB/support.tcl
 source $IX_LIB/channel.tcl
 source $IX_LIB/buffer.tcl
 
