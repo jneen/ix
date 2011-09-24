@@ -31,6 +31,6 @@ Buffer method setBuffer {newBuffer} {
 Buffer method write {} {
     # NB:  This will clobber anything that tries to get in its way.
     set handle [open $filename w\+]
-    puts -nonewline $handle $buffer
+    print $handle $buffer
     close $handle
 }
