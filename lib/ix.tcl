@@ -11,6 +11,10 @@ proc ix.run {} {
     set fooBuffer [Buffer new]
     $fooBuffer initialize "foobar.txt"
 
+    set [$fooBuffer getBuffer] "Supercalifragilisticexpialidocious!"
+
+    $fooBuffer write
+
     ncurses.do {
         stdscr puts [$fooBuffer get buffer]
         ncurses.getc
