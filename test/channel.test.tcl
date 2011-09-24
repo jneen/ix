@@ -1,7 +1,3 @@
-proc eq {a b} {
-    expr {$a == $b}
-}
-
 test channel-1.1 "Creating a channel" {
     set channel [Channel new]
     $channel subscribers
