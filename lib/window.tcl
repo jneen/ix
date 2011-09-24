@@ -13,9 +13,9 @@ Window method initialize {buf} {
 
 Window method show {} {
     ncurses.do {
-        set win [stdscr window 24 80 0 0]
+        set win [stdscr window {*}[stdscr getmaxyx] 0 0]
         $win box
-        $win puts {1 1} "Something goes here"
+        $win puts {1 1} [$buffer getBuffer]
         ncurses.getc
     }
 }
