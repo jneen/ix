@@ -1,0 +1,14 @@
+conductor "object"/main event loop/whatever:
+- owns console
+- owns buffers
+- knows what the current backend is
+- can switch between buffers
+
+buffers:
+- contain text
+- has current location of caret
+
+backends:
+- given input, decide what to do to current buffer
+- identity backend:  char x -> x
+- normal backend:  hjkl -> directions, dd -> delete line
