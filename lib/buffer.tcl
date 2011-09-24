@@ -23,12 +23,16 @@ Buffer method initialize {path} {
 }
 
 Buffer method getBuffer {} {
-    return [ref buffer "Buffer value"]
+    return $buffer
+}
+
+Buffer method setBuffer {newBuffer} {
+    set buffer $newBuffer
 }
 
 Buffer method write {} {
     # NB:  This will clobber anything that tries to get in its way.
     set handle [open $filename w\+]
-    puts $handle $buffer
+    puts -nonewline $handle $buffer
     close $handle
 }
