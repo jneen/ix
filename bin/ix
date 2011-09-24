@@ -3,4 +3,4 @@
 
 source [file dirname [info script]]/../lib/ix.tcl
 
-ix.run
+ix.run [lindex $argv 0]

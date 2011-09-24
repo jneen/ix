@@ -11,9 +11,10 @@ Mode method initialize {win} {
     set window $win
 }
 
-
-Mode method processInput { input } {
-    # Process input
+Mode method switchMode modeName {
+    set mode [$modeName new]
+    $mode initialize $window
+    $window setMode $mode
 }
 
 # -- CONCRETE CLASSES ----------------
@@ -23,11 +24,6 @@ class NormalMode Mode {
     name "normal"
 }
 
-# INTERFACE TO BUFFER
-# ... Wait for Jordan
-# Given a buffer, you can tell it:
-# 
-
 NormalMode method processKey { input } {
     switch $input {
         i {
@@ -35,20 +31,34 @@ NormalMode method processKey { input } {
         }
 
         h {
-            # Move left
+            lassign [$window cursor] row col
+            if {$col > 0} {
+                $window setCursor [list $row [- $col 1]]
+            }
         }
 
         l {
-            # Move right
+            lassign [$window cursor] row col
+            if {$col < [$window width]} {
+                $window setCursor [list $row [+ $col 1]]
+            }
         }
 
         k {
-            # Move up
+            lassign [$window cursor] row col
+            if {$row > 0} {
+                $window setCursor [list [- $row 1] $col]
+            }
         }
 
         j {
-            # Move down
+            lassign [$window cursor] row col
+            if {$row < [$window height]} {
+                $window setCursor [list [+ $row 1] $col]
+            }
         }
+
+        : { $window setMode CommandMode }
         
         e {
             # To end of word
@@ -60,6 +70,7 @@ NormalMode method processKey { input } {
     
         0 {
             # To beginning of line
+        }
         
         $ {
             # To end of line
@@ -69,7 +80,6 @@ NormalMode method processKey { input } {
             # pass
         }
     }
-
 }
 
 # Insert Mode
@@ -87,23 +97,37 @@ class CommandMode Mode {
     contents ""
 }
 
-CommandMode method processInput { input } {
+CommandMode method initialize {win} {
+    set window $win
+    $window setCommand ""
+}
+
+CommandMode method setContents {str} {
+    set contents $str
+    $window setCommand $contents
+}
+
+CommandMode method processKey { input } {
     # Process input
     switch $input {
         <Enter> {
             $self execute $contents
-            set contents ""
+            $window setMode NormalMode
+            $window clearCommand
+        }
+
+        <Backspace> {
+            $self setContents [string range $contents 0 end-1]
         }
 
         default {
-            string append contents $input
-            # pass
+            $self setContents $contents$input
         }
     }
 }
 
 CommandMode method execute {command} {
-    uplevel #0 $command
+    catch {uplevel #0 $command}
 }
 
 # - HELPER FUNCTIONS -------------------------

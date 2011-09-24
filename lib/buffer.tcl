@@ -24,6 +24,10 @@ Buffer method getBuffer {} {
     return $buffer
 }
 
+Buffer method getLine {i} {
+    lindex $buffer $i
+}
+
 Buffer method setBuffer {newBuffer} {
     set buffer $newBuffer
 }
