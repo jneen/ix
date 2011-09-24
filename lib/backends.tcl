@@ -4,7 +4,13 @@ package require oo
 # Base 'abstract' class
 class Mode {
     name "base class"
+    window {}
 }
+
+Mode method initialize {win} {
+    set window $win
+}
+
 
 Mode method processInput { input } {
     # Process input
@@ -22,10 +28,10 @@ class NormalMode Mode {
 # Given a buffer, you can tell it:
 # 
 
-NormalMode method processInput { input } {
+NormalMode method processKey { input } {
     switch $input {
-        dd {
-            # Delete line
+        i {
+            # change Mode
         }
 
         h {
@@ -75,31 +81,30 @@ InsertMode method processInput { input } {
     # Process input... Will write later
 }
 
-
 # Command Mode 
 class CommandMode Mode {
     name "command"
+    contents ""
 }
 
 CommandMode method processInput { input } {
     # Process input
     switch $input {
-        e {
-            # Open file
+        <Enter> {
+            $self execute $contents
+            set contents ""
         }
-        w {
-            # Save file
-        }
-        q {
-            # Close window
-        }
-        
+
         default {
+            string append contents $input
             # pass
         }
     }
 }
 
+CommandMode method execute {command} {
+    uplevel #0 $command
+}
 
 # - HELPER FUNCTIONS -------------------------
 
@@ -107,4 +112,3 @@ CommandMode method processInput { input } {
 proc identity { input } {
     return $input
 }
-
