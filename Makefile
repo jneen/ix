@@ -6,5 +6,10 @@ JIMSH = $(JIM_PATH)/jimsh
 deps:
 	cd $(JIM_NCURSES) && JIM_PATH=../jimtcl make
 
+.PHONY: run
 run:
-	./deps/jimtcl/jimsh ./bin/ix
+	$(JIMSH) ./bin/ix
+
+.PHONY: test
+test:
+	$(JIMSH) ./test/runner.tcl
