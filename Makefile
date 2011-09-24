@@ -7,9 +7,9 @@ deps:
 	cd $(JIM_NCURSES) && JIM_PATH=../jimtcl make
 
 .PHONY: run
-run:
+run: deps
 	$(JIMSH) ./bin/ix
 
 .PHONY: test
-test:
+test: deps
 	$(JIMSH) ./test/runner.tcl
