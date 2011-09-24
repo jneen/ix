@@ -1,7 +1,13 @@
+# Channel class, for publishing and subscribing
+
 package require oo
 
 class Channel {
   subscribers {}
+}
+
+Channel method subscribers {} {
+  return $subscribers
 }
 
 Channel method subscribe {args} {
@@ -10,6 +16,6 @@ Channel method subscribe {args} {
 
 Channel method publish {args} {
   foreach sub $subscribers {
-    $sub {*}$args
+    uplevel 2 [list $sub {*}$args]
   }
 }
