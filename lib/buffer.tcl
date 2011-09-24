@@ -4,9 +4,8 @@
 package require aio
 
 class Buffer {
-    filename ""
-    buffer ""
-    position ""
+    filename ""     ;# Path to the file this Buffer controls.
+    buffer ""       ;# Text contained in this Buffer.
 }
 
 Buffer method initialize {path} {
