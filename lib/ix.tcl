@@ -8,11 +8,11 @@ source $IX_LIB/channel.tcl
 source $IX_LIB/buffer.tcl
 
 proc ix.run {} {
-  set fooBuffer [Buffer new]
-  $fooBuffer initialize "foobar.txt"
+    set fooBuffer [Buffer new]
+    $fooBuffer initialize "foobar.txt"
 
-  ncurses.do {
-    stdscr puts [$fooBuffer get buffer]
-    ncurses.getc
-  }
+    ncurses.do {
+        stdscr puts [$fooBuffer get buffer]
+        ncurses.getc
+    }
 }

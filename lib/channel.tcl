@@ -3,19 +3,19 @@
 package require oo
 
 class Channel {
-  subscribers {}
+    subscribers {}
 }
 
 Channel method subscribers {} {
-  return $subscribers
+    return $subscribers
 }
 
 Channel method subscribe {args} {
-  lappend subscribers [lambda {*}$args]
+    lappend subscribers [lambda {*}$args]
 }
 
 Channel method publish {args} {
-  foreach sub $subscribers {
-    uplevel 2 [list $sub {*}$args]
-  }
+    foreach sub $subscribers {
+        uplevel 2 [list $sub {*}$args]
+    }
 }
