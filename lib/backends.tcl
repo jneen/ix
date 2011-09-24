@@ -19,6 +19,8 @@ class NormalMode Mode {
 
 # INTERFACE TO BUFFER
 # ... Wait for Jordan
+# Given a buffer, you can tell it:
+# 
 
 NormalMode method processInput { input } {
     switch $input {
@@ -41,6 +43,21 @@ NormalMode method processInput { input } {
         j {
             # Move down
         }
+        
+        e {
+            # To end of word
+        }
+
+        b {
+            # To beginning of word
+        }
+    
+        0 {
+            # To beginning of line
+        
+        $ {
+            # To end of line
+        }
 
         default {
             # pass
@@ -56,6 +73,31 @@ class InsertMode Mode {
 
 InsertMode method processInput { input } {
     # Process input... Will write later
+}
+
+
+# Command Mode 
+class CommandMode Mode {
+    name "command"
+}
+
+CommandMode method processInput { input } {
+    # Process input
+    switch $input {
+        e {
+            # Open file
+        }
+        w {
+            # Save file
+        }
+        q {
+            # Close window
+        }
+        
+        default {
+            # pass
+        }
+    }
 }
 
 
