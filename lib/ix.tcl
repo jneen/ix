@@ -7,13 +7,13 @@ set IX_LIB [file dirname [info script]]
 source $IX_LIB/support.tcl
 source $IX_LIB/channel.tcl
 source $IX_LIB/buffer.tcl
+source $IX_LIB/window.tcl
 
 proc ix.run {} {
     set fooBuffer [Buffer new]
     $fooBuffer initialize "foobar.txt"
 
-    ncurses.do {
-        stdscr puts [$fooBuffer get buffer]
-        ncurses.getc
-    }
+    set fooWindow [Window new]
+    $fooWindow initialize $fooBuffer
+    $fooWindow show
 }
