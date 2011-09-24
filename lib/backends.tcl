@@ -21,17 +21,32 @@ class NormalMode Mode {
 # ... Wait for Jordan
 
 NormalMode method processInput { input } {
-    if string equal input dd {
-        # Delete line
-    } elseif string equal input h {
-        # Move left
-    } elseif string equal input l {
-        # Move right
-    } elseif string equal input k {
-        # Move up
-    } elseif string equal input j {
-        # Move down
+    switch $input {
+        dd {
+            # Delete line
+        }
+
+        h {
+            # Move left
+        }
+
+        l {
+            # Move right
+        }
+
+        k {
+            # Move up
+        }
+
+        j {
+            # Move down
+        }
+
+        default {
+            # pass
+        }
     }
+
 }
 
 # Insert Mode
@@ -48,6 +63,6 @@ InsertMode method processInput { input } {
 
 # Identity backend
 proc identity { input } {
-    return input
+    return $input
 }
 
